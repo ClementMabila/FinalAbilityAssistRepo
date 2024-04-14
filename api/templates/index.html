@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to AbilityAssist</title>
+    <script src="/staticfiles/leon.js' "></script>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Custom CSS */
+        /* Custom CSS */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #e7f1f7;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            font-size: 1.2rem;
+        }
+
+        header {
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1000;
+        }
+
+        footer {
+            background-color: #343a40;
+            color: #fff;
+            text-align: center;
+            padding: 20px 0;
+            position: relative;
+            z-index: 1000;
+        }
+
+        .navbar-brand,
+        .nav-link {
+            font-family: 'Poppins', sans-serif;
+            color: #fff;
+        }
+
+        .navbar-dark .navbar-toggler-icon {
+            background-color: #fff;
+        }
+
+        .navbar-dark .navbar-nav .nav-link {
+            color: #fff;
+        }
+
+        .navbar-dark .navbar-nav .nav-link:hover {
+            color: #ffc107;
+        }
+
+        .dropdown-menu {
+            font-family: 'Poppins', sans-serif;
+            background-color: #333;
+        }
+
+        .dropdown-item {
+            color: #fff;
+        }
+
+        .dropdown-item:hover {
+            background-color: #ffc107;
+        }
+
+        h2 {
+            font-family: 'Montserrat', sans-serif;
+            color: #333;
+        }
+
+        p {
+            font-family: 'Poppins', sans-serif;
+            color: #666;
+        }
+
+        .form-control {
+            border-color: #ffc107;
+        }
+
+        .btn-primary {
+            background-color: #ffc107;
+            border-color: #ffc107;
+        }
+
+        .btn-primary:hover {
+            background-color: #e0a800;
+            border-color: #e0a800;
+        }
+
+        .btn-danger {
+            background-color: #dc3545;
+            border-color: #dc3545;
+        }
+
+        .btn-danger:hover {
+            background-color: #c82333;
+            border-color: #c82333;
+        }
+
+        .user-icon {
+            margin-right: 5px;
+        }
+
+        .container {
+            margin-top: 20px;
+        }
+
+        .split-container {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+        }
+
+        #audioIndicator {
+            display: none; /* Hide initially */
+        }
+
+        #map-container {
+            width: 100%;
+            height: 400px;
+            overflow: hidden;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        .form-container {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .company-info {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            color: #333;
+        }
+
+        footer {
+            background-color: #333;
+            color: #ffc107;
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        @media (min-width: 768px) {
+            .split-container {
+                flex-direction: row;
+            }
+
+            #map-container {
+                width: 60%;
+                margin-right: 20px;
+            }
+
+            .form-container {
+                width: 40%;
+            }
+        }
+
+        .chat-button{
+            margin-top: 10px;
+            background-color: #007bff;
+            border-color: #007bff;
+            color: #fff;
+            width: 100%;
+        }
+
+        .emergency-button {
+            margin-top: 10px;
+            background-color: red;
+            border-color: #007bff;
+            color: #fff;
+            width: 100%;
+        }
+
+        .chat-button:hover,
+        .emergency-button:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+
+        .button-container {
+            margin-top: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 250px;
+        }
+
+        /* Additional styling for buttons */
+        .chat-button,
+        .emergency-button {
+            height: 100%; /* Each button takes up 50% of the height */
+            margin-bottom: 10px;
+        }
+
+        .chat-button:hover,
+        .emergency-button:hover {
+            border-radius: 0;
+        }
+
+        .chat-button span,
+        .emergency-button span {
+            display: block;
+        }
+
+        .audio-indicator {
+            display: none; /* Initially hidden */
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: #007bff;
+            color: #fff;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+        }
+
+        .audio-indicator.active {
+            display: block; /* Displayed when active */
+        }
+
+        /* Updated styles for dropdown menu */
+        .dropdown-menu {
+            font-family: 'Poppins', sans-serif;
+            background-color: #343a40;
+            border: none;
+        }
+
+        .dropdown-item {
+            color: #ffc107;
+        }
+
+        .dropdown-item:hover {
+            background-color: #343a40;
+            color: #fff;
+        }
+    </style>
+</head>
+
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container">
+                <a class="navbar-brand" href="{% url 'index' %}"><img src="/staticfiles/abilityassist.png" alt="AbilityAssist Logo"
+                        height="45" width="50">Ability Assist</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'index' %}">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'about' %}">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'contact' %}">Contact</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Help</a>
+                        </li>
+                    </ul>
+                    <div class="nav-item dropdown ml-auto">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            {% if user.is_authenticated %}
+                                {{ user.get_full_name|default:user.username }}
+                            {% else %}
+                                Login to Volunteer Account
+                            {% endif %}
+                            <i class="fas fa-user"></i>
+                            <span class="username"></span>
+                        </a>
+                       <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            {% if user.is_authenticated %}
+                                <a class="dropdown-item" href="{% url 'edit_profile' %}">Edit/Delete Volunteer Profile</a>
+                                <a class="dropdown-item" href="{% url 'travel_history' %}">Volunteer Assist History</a>
+                                <a class="dropdown-item" href="{% url 'saved_locations' %}">Assistive Resources</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="{% url 'logout' %}">Log Out</a>
+                            {% else %}
+                                <a class="dropdown-item" href="{% url 'login' %}">Log In</a>
+                                <a class="dropdown-item" href="{% url 'register' %}">Register</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container">
+        <div class="split-container">
+            <div id="map-container">
+
+            </div>
+            <div class="form-container">
+                <form id="destinationForm">
+                    <div class="form-group">
+                        <label for="destinationInput">Choose Destination:</label>
+                        <select class="form-control" id="destinationInput" name="destination">
+                            <option value="">Select a destination</option>
+                            <option value="5G6CF34W+CM Soshanguve, South Africa">Main Gate</option>
+                            <option value="5G6CF35X+Q3 Soshanguve, South Africa">Small Gate</option>
+                            <option value="5G6CF35W+V5 Soshanguve,  South Africa">Library</option>
+                            <option value="5G6CF36W+8F Soshanguve, South Africa">Building 13</option>
+                            <option value="F35W+Q3 Soshanguve, South Africa">One-Stop Building</option>
+                            <option value="F35V+VX Soshanguve, South Africa">M&W Res admin</option>
+                            <option value="5G6CF35W+Q7 Soshanguve, South Africa">Financial Aid Office</option>
+                            <option value="5G6CF35W+V6 Soshanguve, South Africa">I-Center</option>
+                            <option value="5G6CF35W+F7 Soshanguve, South Africa">Gymnasium</option>
+                            <option value="5G6CF34W+J5 Soshanguve, South Africa">Student town resident admin</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">Calculate Route</button>
+                    </div>
+                </form>
+
+                <div id="distanceResult"></div>
+                <div class="button-container">
+                    <button class="chat-button" onclick="startChat()">
+                        <span class="fas fa-comment-dots"></span>
+                        Chat
+                    </button>
+                    <button class="emergency-button" onclick="startEmergency()">
+                        <span class="fas fa-exclamation-circle"></span>
+                        Emergency
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="company-info">
+            <h2>Welcome to AbilityAssist</h2>
+            <p>At AbilityAssist, we strive to create a more inclusive world for everyone. Let us know how we can help you
+                or your loved ones today.</p>
+        </div>
+
+        <footer>
+            <div class="container">
+                <p>&copy; 2024 AbilityAssist. All rights reserved.</p>
+            </div>
+        </footer>
+    </div>
+    <script>
+        var userLocation;
+        var map;
+        var tutSouthCampusBounds = {
+            north: -25.5372,
+            south: -25.5444,
+            east: 28.0983,
+            west: 28.0929
+        };
+
+
+        function initMap() {
+            // Initialize the map centered at an example location
+            var tutSouthCampus = { lat: -25.54055, lng: 28.095 };
+            map = new google.maps.Map(document.getElementById("map-container"), {
+                center: tutSouthCampus, // Center the map on TUT main campus
+                zoom: 15,
+                restriction: {
+                    latLngBounds: tutSouthCampusBounds,
+                    strictBounds: false
+                    },
+                gestureHandling: 'cooperative' // Allow map panning within bounds
+            });
+
+             // Get user's current location
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    function(position) {
+                        console.log(position);
+
+                        // Retrieve user's current latitude and longitude
+                        const latitude = position.coords.latitude;
+                        const longitude = position.coords.longitude;
+
+                        // Define the user's location as a LatLng object
+                        userLocation = { lat: latitude, lng: longitude };
+                        console.log(userLocation);
+
+                        // Create a marker at the user's location
+                        var marker = new google.maps.Marker({
+                            position: userLocation,
+                            map: map,
+                            title: 'Your Location'
+                        });
+
+                        // Center the map on the user's location
+                        map.setCenter(userLocation);
+                    },
+                    function(error) {
+                        console.error('Error: The Geolocation service failed:', error);
+                    },
+                    {
+                        enableHighAccuracy: true, // Request high accuracy for location
+                        maximumAge: 5000, // Cache location for 5 seconds
+                        timeout: 10000 // Wait up to 10 seconds for location response
+                    }
+                );
+            } else {
+                console.error('Error: Your browser doesn\'t support geolocation.');
+            }
+
+            // Set up autocomplete for the destination input
+            var input = document.getElementById('destinationInput');
+            var autocomplete = new google.maps.places.Autocomplete(input);
+            autocomplete.bindTo('bounds', map);
+
+            // Set up markers for predefined locations
+            setMarkers(map);
+
+            // Call calculateRoute when the form is submitted
+            document.getElementById("destinationForm").addEventListener("submit", function (event) {
+                event.preventDefault();
+                const origin = userLocation;
+                const destination = document.getElementById("destinationInput").value;
+
+                // Parse the coordinates (latitude and longitude)
+                const [latitude, longitude] = destination.split(',').map(Number);
+
+                // Perform further processing with the coordinates (e.g., calculate route)
+                console.log(`Latitude: ${latitude}, Longitude: ${longitude}`);
+
+                // Check if a valid destination is chosen
+                if (destination) {
+                    const geocoder = new google.maps.Geocoder();
+                    geocoder.geocode({ 'address': destination, 'bounds': tutSouthCampusBounds }, function (results, status) {
+                        if (status === 'OK') {
+                            const destinationLatLng = results[0].geometry.location;
+                            calculateRoute(origin, destination);
+                        } else {
+                            console.error('Geocoding failed due to: ' + status);
+                            document.getElementById('distanceResult').innerHTML = `
+                                <p>Failed to find destination. Please try again.</p>
+                            `;
+                        }
+                    });
+                } else {
+                    document.getElementById('distanceResult').innerHTML = `
+                        <p>Please choose a valid destination.</p>
+                    `;
+                }
+            });
+        }
+
+        // Data for the markers consisting of a name, a LatLng and a zIndex for the
+        // order in which these markers should display on top of each other.
+        const beaches = [
+          ["Student town resident admin", -25.54345, 28.09544, 14],
+          ["Main gate", -25.54396, 28.09668, 11],
+          ["Small gate",  -25.54062, 28.09766, 10],
+          ["Library", -25.5403, 28.0954, 9],
+          ["Building 13", -25.53922, 28.0962, 8],
+          ["One stop Post/Under-graduates", -25.54055, 28.09525, 7],
+          ["I-Center", -25.5403, 28.09558, 6],
+          ["Gymnasium", -25.5413, 28.09568, 4],
+          ["Student centre", -25.541454, 28.0951, 3],
+          ["Men & Female Resident admin", -25.54025, 28.09490, 2],
+          ["Financial Aid office", -25.54055, 28.0957, 1],
+        ];
+
+        function setMarkers(map) {
+          const image = {
+            url: "https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png",
+            // This marker is 20 pixels wide by 32 pixels high.
+            size: new google.maps.Size(20, 32),
+            // The origin for this image is (0, 0).
+            origin: new google.maps.Point(0, 0),
+            // The anchor for this image is the base of the flagpole at (0, 32).
+            anchor: new google.maps.Point(0, 32),
+          };
+          // Shapes define the clickable region of the icon. The type defines an HTML
+          // <area> element 'poly' which traces out a polygon as a series of X,Y points.
+          // The final coordinate closes the poly by connecting to the first coordinate.
+          const shape = {
+            coords: [1, 1, 1, 20, 18, 20, 18, 1],
+            type: "poly",
+          };
+
+          for (let i = 0; i < beaches.length; i++) {
+            const beach = beaches[i];
+
+            new google.maps.Marker({
+              position: { lat: beach[1], lng: beach[2] },
+              map,
+              icon: image,
+              shape: shape,
+              title: beach[0],
+              zIndex: beach[3],
+            });
+          }
+        }
+
+
+        function calculateRoute(origin, destination) {
+            const directionsService = new google.maps.DirectionsService();
+            const directionsRenderer = new google.maps.DirectionsRenderer();
+            directionsRenderer.setMap(map);
+
+            const request = {
+                origin: origin,
+                destination: destination,
+                travelMode: google.maps.TravelMode.WALKING
+            };
+
+            directionsService.route(request, function (result, status) {
+                if (status === 'OK') {
+                    directionsRenderer.setDirections(result);
+                    // Display distance and duration from the response
+                    const distance = result.routes[0].legs[0].distance.text;
+                    const duration = result.routes[0].legs[0].duration.text;
+                    document.getElementById('distanceResult').innerHTML = `
+                        <p>Distance: ${distance}</p>
+                        <p>Duration: ${duration}</p>
+                    `;
+
+
+                    var text = "distance to your selected destination is "+distance+" and the time it will take is "+duration;
+                    console.log(text)
+                    if ('speechSynthesis' in window) {
+                        // Create a new SpeechSynthesisUtterance object
+                        const speech = new SpeechSynthesisUtterance(text);
+
+                        // Set properties (optional)
+                        // You can set properties like voice, volume, rate, pitch, etc.
+                        speech.voice = speechSynthesis.getVoices()[0]; // Default voice
+                        speech.volume = 1; // Max volume
+                        speech.rate = 1; // Normal speed
+                        speech.pitch = 1; // Normal pitch
+
+                        // Start speaking
+                        speechSynthesis.speak(speech);
+                    } else {
+                        console.error('Sorry, your browser does not support text-to-speech.');
+                    }
+                }else {
+                    console.error('Directions request failed due to: ' + status);
+                    document.getElementById('distanceResult').innerHTML = `
+                        <p>Failed to calculate route. Please try again.</p>
+                    `;
+                }
+            });
+        }
+
+        function startChat() {
+            // Function to handle chat button click
+            console.log("Chat button clicked.");
+            alert("Chat functionality is not yet implemented.");
+        }
+
+        function startEmergency() {
+            // Function to handle emergency button click
+            console.log("Emergency button clicked.");
+            alert("Emergency functionality is not yet implemented.");
+        }
+    </script>
+
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAWgNkwf11_tis-7MTs4dI-Dvm-e5EX-MA&callback=initMap&libraries=places">
+    </script>
+    <!-- Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>
