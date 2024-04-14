@@ -101,14 +101,16 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'ProjectDatabases',
-        'USER':'zeneth',
-        'PASSWORD':'zenethxen',
-        'PORT':'5432',
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": os.getenv("DB_NAME"),
+        "USER": os.getenv("DB_USER"),
+        "PASSWORD": os.getenv("DB_PWD"),
+        "HOST": os.getenv("DB_HOST"),
+        "PORT": os.getenv("DB_PORT"),
     }
 }
+
 
 
 # Password validation
@@ -168,17 +170,3 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'sandbox1c44c8ed38dc48689ff4dfd32cb30a56.mailgun.org'
 EMAIL_HOST_PASSWORD = '4e01423e49dddd4b1a89bf73fcc36dc8-4b670513-8453db0d'
 DEFAULT_FROM_EMAIL = 'Clement <Clementmabila95@gmail.com>'
-
-SOCIALACCOUNT_PROVIDERS = {
-    'google': {
-        'SCOPE': [
-            'profile',
-            'email',
-        ],
-        'AUTH_PARAMS': {
-            'access_type': 'offline',
-        },
-        'CLIENT_ID': '556210083626-h1br255b06qtreo0sbqusl4ri6skahhj.apps.googleusercontent.com',
-        'SECRET': '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',
-    }
-}
