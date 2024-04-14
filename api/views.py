@@ -50,7 +50,9 @@ def register(request):
             user = authenticate(email=email, password=password)
             if user:
                 login(request, user)
-
+                welcome_serializer = YourSerializer()
+                welcome_serializer.send_mail("Welcome to Ability Assist", "Thank you for joining us", email)
+                
             return redirect('index')
     else:
         # Initialize an empty serializer for GET requests
