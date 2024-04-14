@@ -162,11 +162,3 @@ AUTHENTICATION_BACKENDS = [
 ]
 
 # settings.py
-
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.mailgun.org'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'sandbox1c44c8ed38dc48689ff4dfd32cb30a56.mailgun.org'
-EMAIL_HOST_PASSWORD = '4e01423e49dddd4b1a89bf73fcc36dc8-4b670513-8453db0d'
-DEFAULT_FROM_EMAIL = 'Clement <Clementmabila95@gmail.com>'
